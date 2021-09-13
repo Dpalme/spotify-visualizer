@@ -39,10 +39,10 @@ The visualizer is built on ThreeJs and Web Audio API, so it can be adapted to ac
 - Reflections
 
 ## Screenshots
-![Light Login]("https://dpalmer.in/spotify-visualizer/imgs/Light_Login.jpg" "Light Login")
-![Light Waiting]("https://dpalmer.in/spotify-visualizer/imgs/Light_Waiting.jpg" "Light Waiting")
-![Light Visual]("https://dpalmer.in/spotify-visualizer/imgs/Light_Visual.jpg" "Light Visual")
-![Light Settings]("https://dpalmer.in/spotify-visualizer/imgs/Light_Settings.jpg" "Light Settings")
+![Light Login](https://dpalmer.in/spotify-visualizer/imgs/Light_Login.jpg "Light Login")
+![Light Waiting](https://dpalmer.in/spotify-visualizer/imgs/Light_Waiting.jpg "Light Waiting")
+![Light Visual](https://dpalmer.in/spotify-visualizer/imgs/Light_Visual.jpg "Light Visual")
+![Light Settings](https://dpalmer.in/spotify-visualizer/imgs/Light_Settings.jpg "Light Settings")
 
 ## Technical specifications
 
