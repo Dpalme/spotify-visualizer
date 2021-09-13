@@ -1,213 +1,93 @@
-# tc-3022-proyecto-final
+# Spotify Visualizer
 
-## Ideas
-[Idea 1 | Visualizador de Spotify](#visualizador-integrado-a-spotify)
-[Idea 2 | Musica Generativa](#máquina-musical-generativainteractiva-audiovisual)
-[Idea 3 | Racer infinito](#racer-infinito)
+Connect your premium spotify account and enjoy a 3d visualizer that reacts in real-time to your favorite music!
 
-___
+[See the live version](https://dpalmer.in/spotify-visualizer)
 
-### Visualizador integrado a Spotify
+## Requirements
 
-`Herramienta audiovisual`
+- You need a premium spotify account in order to use the visualizer. If you don't have one, [you can sign-up for a free-trial](https://spotify.com).
 
-Una aplicación web que se conecte con spotify y te permita visualizar la música mientras la escuchas.
-#### Requerimientos funcionales
- * Usar cuenta de spotify para reproducir música
- * Representar visualmente la información recibida de spotify
-&nbsp;
- #### Plan de trabajo
+- You need a separate spotify client to control the music, the visualizer cannot browse or change music, think of it as a bluetooth speaker.
 
- ##### Maco-tareas
-| Id | Tarea                         | Dependencias |
-|----|-------------------------------|--------------|
-| 1  | Integrar con API Spotify      |              |
-| 2  | Crear Visualizador            |              |
-| 3  | Integrar API con visualizador | 1, 2         |
+## Usage
 
-&nbsp;
-###### Integrar APi Spotify
-| Id | Tarea                             | Dependencias |
-|----|-----------------------------------|--------------|
-| 1  | Crear app de spotify              |              |
-| 2  | Conectar cliente con API          | 1            |
-| 3  | Obtener stream de audio en buffer | 2            |
-&nbsp;
+1. In the main page, click the log-in button, you will be taken to the spotify authentication page.
+2. Authorize the app. Once back, you will now see "Visualizer" in your connected devices
+3. Select the device as your output
 
-###### Crear Visualizador
-| Id | Tarea                         | Dependencias |
-|----|-------------------------------|--------------|
-| 1  | Convertidor Audio buffer a UintArray |       |
-| 2  | Animación que use el UintArray | 1           |
-&nbsp;
+## Highlights
 
-###### Integrar API con visualizador
-| Id | Tarea                         | Dependencias |
-|----|-------------------------------|--------------|
-| 1  | Conectar buffer a salida de audio Spotify |  |
+The visualizer is built on ThreeJs and Web Audio API, so it can be adapted to accept inputs from any source, if you want to try this out, you can find the Visualizer module inside the `src/` folder
 
-&nbsp;
-#### APIs con los que interactuaría
- * [Spotify Web Playback API](https://developer.spotify.com/documentation/web-playback-sdk/)
- * [Encrypted media](https://www.w3.org/TR/encrypted-media/)
- * [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
- * [Three.js](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
+`Feel free to re-use any code you may find usefull`
 
-#### Moodboard
-![3d spectrogram](https://www.stereophile.com/images/512MitRfig3.jpg "3d spectrogram")
-![3d topography](https://i.pinimg.com/originals/45/0e/e3/450ee3fdb18295c286253ffb384fa66d.jpg "Topography with pillars")
-![3d VIsualier](https://i.ytimg.com/vi/GcddK4RMk_0/maxresdefault.jpg "3d visualizer")
-![3d visualizer](https://image.winudf.com/v2/image/YmUudG1kZS5tdXNpY3Zpc3VhbGl6ZXJfc2NyZWVuXzZfMTUxOTYwMjU5OV8wNzQ/screen-6.jpg?fakeurl=1&type=.jpg "3d visualizer")
+## Visualizer Configuration
 
-#### Proyectos similares
-[Cartographer](https://exp.v-os.ca/cartographer/)
-A web-based exploration of a procedural world
-[Rainmeter Visualizers](https://orig05.deviantart.net/79c7/f/2015/101/7/c/dexterity__nowplaying_display_for_rainmeter__by_alatsombath-d8pbv6m.png)
-For years rainmeter has supported visualizers that use system audio output to gather audio data and a middleware to get the "now playing" track information
-[Slowed + Reverb](https://dpalmer.in/Slowed-Reverb) Cosito que hice hace como 8 meses que intenta hacer música generativa pero no suena chido pero tiene un visualizador
+- Smoothing: How long energy takes to disipate `defaults to 0.5`
+- Resolution: Determines how many bars the visualizer has (Exponential effect on performance) `defaults to Medium`
+- Night Mode: Color of the background `off by default`
+- Color mode: Where the bars get their color from
+    - From cover `default` 
+    - Custom Color 
+- Camera Zoom: 1.0 `default`
 
-___
+### Effects:
+`Can be toggled on or off`
+- Glow
+- AntiAlias
+- Reflections
 
-### Máquina musical generativa/interactiva audiovisual
+## Screenshots
+![Light Login]("https://dpalmer.in/spotify-visualizer/imgs/Light_Login.jpg" "Light Login")
+![Light Waiting]("https://dpalmer.in/spotify-visualizer/imgs/Light_Waiting.jpg" "Light Waiting")
+![Light Visual]("https://dpalmer.in/spotify-visualizer/imgs/Light_Visual.jpg" "Light Visual")
+![Light Settings]("https://dpalmer.in/spotify-visualizer/imgs/Light_Settings.jpg" "Light Settings")
 
-`Herramienta audiovisual`
+## Technical specifications
 
-Un tipo de syntetizador modular orientado a crear música generativa ambiental/drone
-&nbsp;
-#### Requerimientos funcionales
- * Sistema musical generativo
- * Manera de interactuar con el sistema generativo
-&nbsp;
- #### Plan de trabajo
+- Pillars: Rectangles extruded from plane
+- Number of pillars: `FFT_SIZE/2`
+    - Low: **256**
+    - Medium **1024**
+    - High **4096**
+- Max Pillar Height: **200u**
+- Hz/bin: 22500/Pillars:
+    - Low: **~88 Hz**
+    - Medium: **~22 Hz**
+    - High: **~6 Hz**
+- Plane size: **512ux512u**
+- Pillar side:
+    - Low: 512/16 = 32u
+    - Medium: 512/32 = 16u
+    - Hight: 512/64 = 8u
+- Camera projection: **Isometric**
+- Frequency map:
 
- ##### Maco-tareas
-| Id | Tarea                           | Dependencias |
-|----|---------------------------------|--------------|
-| 1  | Componentes del sintetizador    |              |
-| 2  | Interfaz gráfica                |              |
-| 3  | Conectar interfaz y componentes | 1, 2         |
-&nbsp;
-###### Componentes del sintetizador
-| Id | Tarea                           | Dependencias |
-|----|---------------------------------|--------------|
-| 1  | Randomizador                    |              |
-| 2  | Oscilador                       |              |
-| 3  | LFO                             |              |
-| 4  | Mixer                           |              |
-| 5  | Filtros                         |              |
-| 5  | Attack, Decay, Sustain, Release |              |
-&nbsp;
-###### Interfaz gráfica
-| Id | Tarea           | Dependencias |
-|----|-----------------|--------------|
-| 1  | Cables          |              |
-| 2  | Entradas trs    |              |
-| 3  | Sliders         |              |
-| 4  | Potenciómetros  |              |
-| 5  | Toggles         |              |
+|   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  A  |  B  |  C  |  D  |  E  |  F  |
+|:-:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0 | 225 | 226 | 227 | 228 | 229 | 230 | 231 | 232 | 233 | 234 | 235 | 236 | 237 | 238 | 239 | 240 |
+| 1 | 224 | 169 | 170 | 171 | 172 | 173 | 174 | 175 | 176 | 177 | 178 | 179 | 180 | 181 | 182 | 241 |
+| 2 | 223 | 168 | 121 | 122 | 123 | 124 | 125 | 126 | 127 | 128 | 129 | 130 | 131 | 132 | 183 | 242 |
+| 3 | 222 | 167 | 120 |  81 |  82 |  83 |  84 |  85 |  86 |  87 |  88 |  89 |  90 | 133 | 184 | 243 |
+| 4 | 221 | 166 | 119 |  80 |  49 |  50 |  51 |  52 |  53 |  54 |  55 |  56 |  91 | 134 | 185 | 244 |
+| 5 | 220 | 165 | 118 |  79 |  48 |  25 |  26 |  27 |  28 |  29 |  30 |  57 |  92 | 135 | 186 | 245 |
+| 6 | 219 | 164 | 117 |  78 |  47 |  24 |  9  |  10 |  11 |  12 |  31 |  58 |  93 | 136 | 187 | 246 |
+| 7 | 218 | 163 | 116 |  77 |  46 |  23 |  8  |  1  |  2  |  13 |  32 |  59 |  94 | 137 | 188 | 247 |
+| 8 | 217 | 162 | 115 |  76 |  45 |  22 |  7  |  0  |  3  |  14 |  33 |  60 |  95 | 138 | 189 | 248 |
+| 9 | 216 | 161 | 114 |  75 |  44 |  21 |  6  |  5  |  4  |  15 |  34 |  61 |  96 | 139 | 190 | 249 |
+| A | 215 | 160 | 113 |  74 |  43 |  20 |  19 |  18 |  17 |  16 |  35 |  62 |  97 | 140 | 191 | 250 |
+| B | 214 | 159 | 112 |  73 |  42 |  41 |  40 |  39 |  38 |  37 |  36 |  63 |  98 | 141 | 192 | 251 |
+| C | 213 | 158 | 111 |  72 |  71 |  70 |  69 |  68 |  67 |  66 |  65 |  64 |  99 | 142 | 193 | 252 |
+| D | 212 | 157 | 110 | 109 | 108 | 107 | 106 | 105 | 104 | 103 | 102 | 101 | 100 | 143 | 194 | 253 |
+| E | 211 | 156 | 155 | 154 | 153 | 152 | 151 | 150 | 149 | 148 | 147 | 146 | 145 | 144 | 195 | 254 |
+| F | 210 | 209 | 208 | 207 | 206 | 205 | 204 | 203 | 202 | 201 | 200 | 199 | 198 | 197 | 196 | 255 |
 
-&nbsp;
-###### Integrar API con visualizador
-| Id | Tarea                              | Dependencias|
-|----|------------------------------------|-------------|
-| 1  | Crear UI de cada componente        |             |
-| 2  | Sistema para conectar componentes  |             |
-| 3  | Input de teclado como MIDI         |             |
-| 4  | Animaciones (cables y voltímetros) |             |
-&nbsp;
-&nbsp;
-#### APIs con los que interactuaría
- * [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
- * [Three.js](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
-
-#### Moodboard
- ![modular synth](http://demonicsweaters.com/wp-content/uploads/2015/03/899944.jpg "modular synth")
- ![modular synth](http://i1.wp.com/www.synthtopia.com/wp-content/uploads/2013/10/modulargrid-truegrid-web-based-modular-synthesizer.png?fit=844%2C714 "modular synth")
- ![modular synth](https://rekkerd.org/img/201012/uhe_bazil.png "modular synth")
-
- #### Proyectos similares
- [Audio Visual Generator](https://fredericbriolet.com/avg/)
- [Generative.fm](https://generative.fm)
- [Web Modular](https://www.g200kg.com/docs/webmodular/)
- [Slowed + Reverb](https://dpalmer.in/Slowed-Reverb) Cosito que hice hace como 8 meses que intenta hacer música generativa pero no suena chido pero tiene un visualizador
-  
-  ___
-### Racer infinito
-`Videojuego`  
-
-Un videojuego sin fin ni historia donde se vaya creando la música conforme se progresa en el juego y esta reaccione a las acciones de quien está jugando  
-&nbsp;
-#### Requerimientos funcionales
- * Sistema de manejo
- * Generador infinito del camino
- * Generador de música que reaccione a acciones en el juego
-
-&nbsp;
- #### Plan de trabajo
-
- ##### Maco-tareas
-| Id | Tarea                        | Dependencias |
-|----|------------------------------|--------------|
-| 1  | Creación de assets           |              |
-| 2  | Sistema de manejo            |              |
-| 3  | Generador de camino infinito | 1.4          |
-| 4  | Generador de música          | 1.1          |
-| 5  | Conectar todo chiquiwow      | 1, 2, 3, 4   |
-
-&nbsp;
-###### Creación de assets
-| Id | Tarea                 | Dependencias |
-|----|-----------------------|--------------|
-| 1  | Definir estilo visual |              |
-| 2  | Coche                 | 1            |
-| 3  | UI                    | 1            |
-| 4  | Pedazos del camino    | 1            |
-| 5  | Decoración            | 1            |
-
-&nbsp;
-###### Sistema de manejo
-| Id | Tarea          | Dependencias |
-|----|----------------|--------------|
-| 1  | Colisiones     |              |
-| 1  | Inputs teclado |              |
-| 2  | Aceleración    | 1            |
-| 3  | Frenado        | 2            |
-| 4  | Volante        | 1            |
-
-&nbsp;
-###### Generador de camino infinito
-| Id | Tarea                       | Dependencias |
-|----|-----------------------------|--------------|
-| 1  | Randomizador                |              |
-| 2  | Inputs para el randomizador | 1            |
-&nbsp;
-
-###### Generador de música
-| Id | Tarea                       | Dependencias |
-|----|-----------------------------|--------------|
-| 1  | Samples iniciales           |              |
-| 2  | Randomizador musical        | 1            |
-| 3  | Inputs para el randomizador | 2            |
-| 4  | Outputs del randomizador    | 1            |
-&nbsp;
-
-###### Conectar todo chiquiwow
-| Id | Tarea                         | Dependencias |
-|----|-------------------------------|--------------|
-| 1  | Asignar sistema de coche al coche |          |
-| 2  | Output música -> input camino |              |
-| 3  | Output coche -> Input música  |              |
-&nbsp;
-#### APIs con los que interactuaría
- * [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
- * [Three.js](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
-&nbsp;
-#### Moodboard
- ![the art of rally](https://news-cdn.softpedia.com/images/news2/top-down-racer-art-of-rally-draws-inspiration-from-the-golden-era-of-rally-531156-5.jpg "the art of rally")
- ![Thumper](https://screenshots.gamerinfo.net/thumper/154916.jpg "Thumper")
- ![subway surfers](https://i.pinimg.com/originals/6f/1e/11/6f1e1126320e5cdfdf78a9eabf1ef815.jpg "subway surfers")
-
- #### Proyectos similares
- [Ape Out](https://apeout.com) usa un sistema de música responsivo con loops infinitos de jazz que van cambiando conforme el jugador realiza acciones
- [Firewatch](https://www.firewatchgame.com) en la introducción utiliza igualmente un sistema musical reactivo y teóricamente infinito
- [Running in the 80s](https://drive.google.com/drive/folders/0B5xSt2wAJGz3SDlkZjRCNkRCUWs?resourcekey=0-oqgEhjkof1YGyTsjSH_kUA&usp=sharing) de morro hice un juego similar con un sistema para crear un caminito pero con una meta al final (ta en unity como 4 tons...)
+### Algorithm to generate frequency map:
+1. Create a 2d array with each side measuring `SQRT(FFT_SIZE/2)`.
+2. Start in `(SQRT(FFT_SIZE/2)/2) + 1`, `(SQRT(FFT_SIZE/2)/2) + 1`.
+3. Go above until space to the right is clear.
+4. Go right until space below is clear.
+5. Go down until space at the left is clear.
+6. Go left until space above is clear.
+7. Repeat 3-6 until no space is empty.
