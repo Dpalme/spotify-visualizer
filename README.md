@@ -91,3 +91,15 @@ The visualizer is built on ThreeJs and Web Audio API, so it can be adapted to ac
 5. Go down until space at the left is clear.
 6. Go left until space above is clear.
 7. Repeat 3-6 until no space is empty.
+
+### Different Resolutions
+
+#### Low
+
+![Low Resolution](https://raw.githubusercontent.com/Dpalme/spotify-visualizer/main/imgs/Low_Res.jpg "Low resolution")
+
+#### Medium
+![Medium Resolution](https://raw.githubusercontent.com/Dpalme/spotify-visualizer/main/imgs/Med_Res.jpg "Medium resolution")
+
+#### High
+![High Resolution](https://raw.githubusercontent.com/Dpalme/spotify-visualizer/main/imgs/High_Res.jpg "High resolution")
