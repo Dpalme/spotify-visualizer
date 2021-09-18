@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Visualizer</title>
+    <link rel="stylesheet" href="https://dpalmer.in/Peoria/css/peoria-0-6-0.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+
+        :root {
+            --title: 'Montserrat', sans-serif;
+            --default: 'Montserrat', sans-serif;
+        }
+        p {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 2rem;
+            letter-spacing: .25rem;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 2rem;
+            letter-spacing: .5rem;
+        }
+    </style>
+</head>
+
+<body class="night">
+    <div class="overflow-h center-a back" id="output"></div>
+    <section>
+        <div class="grid w-h">
+            <img class="col-3" src="./imgs/faces-cover.jpg" crossorigin="anonymous">
+            <div class="col-8">
+                <h2 style="margin-bottom: .5rem;">Apparition</h2>
+                <p>Mac Miller</p>
+            </div>
+        </div>
+        <audio src="./audio/apparition.mp3" type="audio/mpeg" id="audio-test" autoplay></audio>
+    </section>
+    <script type="module" defer>
+        import { Audio_Analyzer } from './src/Audio_Analyzer.js';
+        import {   Visualizer   } from './src/Visualizer.js';
+
+        const colorThief = new ColorThief(),
+            img = document.querySelector('img');
+        let pallete = [], visualizer, analyzer;
+
+        const rgbToHex = (r, g, b) => [r, g, b]
+
+        // Make sure image is finished loading
+        if (img.complete) {
+            colorThief.getPalette(img, 8).forEach(color => {
+                pallete.push(parseInt(color.map(x => {
+                    const hex = x.toString(16)
+                    return hex.length === 1 ? '0' + hex : hex
+                }).join(''), 16))
+            });
+        } else {
+            image.addEventListener('load', function() {
+                colorThief.getPalette(img, 8).forEach(color => {
+                    pallete.push(parseInt(color.map(x => {
+                        const hex = x.toString(16)
+                        return hex.length === 1 ? '0' + hex : hex
+                    }).join(''), 16))
+                });
+            });
+        }
+
+        function start() {
+            let canvas_container = document.getElementById('output');
+            canvas_container.innerHTML = '';
+            const fft_size = 2048;
+            const smoothness = 0.9;
+            visualizer = new Visualizer(canvas_container, fft_size, pallete);
+            let audioNode = document.getElementById('audio-test');
+            analyzer = new Audio_Analyzer(audioNode, fft_size, smoothness);
+
+            update()
+        }
+        
+        
+
+        function update() {
+            requestAnimationFrame(_ => {update()})
+            
+            visualizer.draw(analyzer.update())
+        }
+        
+        start()
+    </script>
+</body>
+
+</html>

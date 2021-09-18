@@ -4,6 +4,8 @@ Connect your premium spotify account and enjoy a 3d visualizer that reacts in re
 
 [See the live version](https://dpalmer.in/spotify-visualizer)
 
+![V0.0.1](https://dpalmer.in/spotify-visualizer/imgs/V0.0.1SS.jpg "V0.0.1 Prototype")
+
 ## Requirements
 
 - You need a premium spotify account in order to use the visualizer. If you don't have one, [you can sign-up for a free-trial](https://spotify.com).
@@ -48,19 +50,19 @@ The visualizer is built on ThreeJs and Web Audio API, so it can be adapted to ac
 
 - Pillars: Rectangles extruded from plane
 - Number of pillars: `FFT_SIZE/2`
-    - Low: **256**
-    - Medium **1024**
+    - Low: **1024**
+    - Medium **2048**
     - High **4096**
 - Max Pillar Height: **200u**
 - Hz/bin: 22500/Pillars:
-    - Low: **~88 Hz**
-    - Medium: **~22 Hz**
-    - High: **~6 Hz**
+    - Low: **~22 Hz**
+    - Medium: **~11 Hz**
+    - High: **~5 Hz**
 - Plane size: **512ux512u**
 - Pillar side:
-    - Low: 512/16 = 32u
-    - Medium: 512/32 = 16u
-    - Hight: 512/64 = 8u
+    - Low: 512/32 = 16u
+    - Medium: 512/64 = 8u
+    - Hight: 512/128 = 4u
 - Camera projection: **Isometric**
 - Frequency map:
 
@@ -96,10 +98,10 @@ The visualizer is built on ThreeJs and Web Audio API, so it can be adapted to ac
 
 #### Low
 
-![Low Resolution](https://raw.githubusercontent.com/Dpalme/spotify-visualizer/main/imgs/Low_Res.jpg "Low resolution")
+![Low Resolution](https://dpalmer.in/spotify-visualizer/imgs/Low_Res.jpg "Low resolution")
 
 #### Medium
-![Medium Resolution](https://raw.githubusercontent.com/Dpalme/spotify-visualizer/main/imgs/Med_Res.jpg "Medium resolution")
+![Medium Resolution](https://dpalmer.in/spotify-visualizer/imgs/Med_Res.jpg "Medium resolution")
 
 #### High
-![High Resolution](https://raw.githubusercontent.com/Dpalme/spotify-visualizer/main/imgs/High_Res.jpg "High resolution")
+![High Resolution](https://dpalmer.in/spotify-visualizer/imgs/High_Res.jpg "High resolution")
