@@ -34,14 +34,14 @@
 <body class="night">
     <div class="overflow-h center-a back" id="output"></div>
     <section>
-        <div class="grid w-h">
+        <div class="grid w-h mb-md">
             <img class="col-3" src="./imgs/faces-cover.jpg" crossorigin="anonymous">
             <div class="col-8">
                 <h2 style="margin-bottom: .5rem;">Apparition</h2>
                 <p>Mac Miller</p>
             </div>
         </div>
-        <audio src="./audio/apparition.mp3" type="audio/mpeg" id="audio-test" autoplay></audio>
+        <audio src="./audio/apparition.mp3" type="audio/mpeg" id="audio-test" controls></audio>
     </section>
     <script type="module" defer>
         import { Audio_Analyzer } from './src/Audio_Analyzer.js';
@@ -80,9 +80,9 @@
             visualizer = new Visualizer(canvas_container, fft_size, pallete);
             let audioNode = document.getElementById('audio-test');
             analyzer = new Audio_Analyzer(audioNode, fft_size, smoothness);
-
             update()
         }
+
         
         
 
