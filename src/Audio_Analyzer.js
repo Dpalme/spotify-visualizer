@@ -8,7 +8,7 @@ class Audio_Analyzer {
         this.data = new Uint8Array(this.analyser.frequencyBinCount);
         this.audioStr = this.audioCtx.createMediaElementSource(source);
         this.audioStr.connect(this.analyser);
-        this.audioStr.connect(this.audioCtx.destination);
+        this.audioStr.connect(this.audioCtx.destination)
     }
 
     update() {

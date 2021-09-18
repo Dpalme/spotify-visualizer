@@ -28,19 +28,28 @@
             line-height: 2rem;
             letter-spacing: .5rem;
         }
+
+        .track-info {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 0px;
+        }
     </style>
 </head>
 
 <body class="night">
     <div class="overflow-h center-a back" id="output"></div>
     <section>
-        <div class="grid w-h mb-md">
-            <img class="col-3" src="./imgs/faces-cover.jpg" crossorigin="anonymous">
-            <div class="col-8">
+        <div class="mb-md track-info">
+            <img src="./imgs/faces-cover.jpg" crossorigin="anonymous" style="width: 8rem;height: 8rem;"
+                class="mr-md inline">
+            <div class="d-inline" style="width: auto;">
                 <h2 style="margin-bottom: .5rem;">Apparition</h2>
                 <p>Mac Miller</p>
             </div>
         </div>
+        <input type="range" name="smoothness" min="0.01" max="0.99" step="0.01" id="smooth-range">
         <audio src="./audio/apparition.mp3" type="audio/mpeg" id="audio-test" controls></audio>
     </section>
     <script type="module" defer>
@@ -75,11 +84,14 @@
         function start() {
             let canvas_container = document.getElementById('output');
             canvas_container.innerHTML = '';
-            const fft_size = 2048;
-            const smoothness = 0.9;
+            const fft_size = 4096;
+            const smoothness = document.getElementById('smooth-range').value;
             visualizer = new Visualizer(canvas_container, fft_size, pallete);
             let audioNode = document.getElementById('audio-test');
             analyzer = new Audio_Analyzer(audioNode, fft_size, smoothness);
+            document.getElementById('smooth-range').addEventListener('input', ev=> {
+                analyzer.analyser.smoothingTimeConstant = ev.target.value
+            })
             update()
         }
 

@@ -34,8 +34,8 @@ class Visualizer {
         this.bars = new THREE.Group();
         
         const side = Math.sqrt(fft_size >> 1),
-              h_side = side >> 1,
-              geometry = new THREE.BoxGeometry(512/side, 200, 512/side),
+              h_side = side >> (fft_size>>11),
+              geometry = new THREE.BoxGeometry(512/side, 400, 512/side),
               materials = pallete.map(color => {
                 return new THREE.MeshStandardMaterial({
                     color: color,
