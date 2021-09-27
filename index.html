@@ -8,7 +8,8 @@
     <title>Spotify Visualizer</title>
     <link rel="stylesheet" href="https://dpalmer.in/Peoria/css/peoria-0-6-0.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-
+    <script src="https://dpalmer.in/Peoria/peoria-3.js"></script>
+    <!--script src="https://sdk.scdn.co/spotify-player.js"></script-->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
 
@@ -16,12 +17,14 @@
             --title: 'Montserrat', sans-serif;
             --default: 'Montserrat', sans-serif;
         }
+
         p {
             font-size: 1rem;
             font-weight: 700;
             line-height: 2rem;
             letter-spacing: .25rem;
         }
+
         h2 {
             font-size: 2rem;
             font-weight: 300;
@@ -39,73 +42,36 @@
 </head>
 
 <body class="night">
-    <div class="overflow-h center-a back" id="output"></div>
-    <section>
-        <div class="mb-md track-info">
-            <img src="./imgs/faces-cover.jpg" crossorigin="anonymous" style="width: 8rem;height: 8rem;"
-                class="mr-md inline">
-            <div class="d-inline" style="width: auto;">
-                <h2 style="margin-bottom: .5rem;">Apparition</h2>
-                <p>Mac Miller</p>
-            </div>
+    <section id="content">
+        <div class="fullscreen" id="disclaimer">
+            <p class="center-a">
+                click to begin
+            </p>
         </div>
-        <input type="range" name="smoothness" min="0.01" max="0.99" step="0.01" id="smooth-range">
-        <audio src="./audio/apparition.mp3" type="audio/mpeg" id="audio-test" controls></audio>
     </section>
-    <script type="module" defer>
-        import { Audio_Analyzer } from './src/Audio_Analyzer.js';
-        import {   Visualizer   } from './src/Visualizer.js';
-
-        const colorThief = new ColorThief(),
-            img = document.querySelector('img');
-        let pallete = [], visualizer, analyzer;
-
-        const rgbToHex = (r, g, b) => [r, g, b]
-
-        // Make sure image is finished loading
-        if (img.complete) {
-            colorThief.getPalette(img, 8).forEach(color => {
-                pallete.push(parseInt(color.map(x => {
-                    const hex = x.toString(16)
-                    return hex.length === 1 ? '0' + hex : hex
-                }).join(''), 16))
-            });
-        } else {
-            image.addEventListener('load', function() {
-                colorThief.getPalette(img, 8).forEach(color => {
-                    pallete.push(parseInt(color.map(x => {
-                        const hex = x.toString(16)
-                        return hex.length === 1 ? '0' + hex : hex
-                    }).join(''), 16))
-                });
-            });
+    <script src="./src/main.js" type="module" defer></script>
+    <script type="x-shader/x-vertex" id="vertexshader">
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
         }
-
-        function start() {
-            let canvas_container = document.getElementById('output');
-            canvas_container.innerHTML = '';
-            const fft_size = 4096;
-            const smoothness = document.getElementById('smooth-range').value;
-            visualizer = new Visualizer(canvas_container, fft_size, pallete);
-            let audioNode = document.getElementById('audio-test');
-            analyzer = new Audio_Analyzer(audioNode, fft_size, smoothness);
-            document.getElementById('smooth-range').addEventListener('input', ev=> {
-                analyzer.analyser.smoothingTimeConstant = ev.target.value
-            })
-            update()
-        }
-
-        
-        
-
-        function update() {
-            requestAnimationFrame(_ => {update()})
-            
-            visualizer.draw(analyzer.update())
-        }
-        
-        start()
     </script>
+    <script type="x-shader/x-fragment" id="fragmentshader">
+        uniform sampler2D baseTexture;
+        uniform sampler2D bloomTexture;
+        varying vec2 vUv;
+        void main() {
+            gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+        }
+    </script>
+    <section>
+        <label for="analyserSmoothingTimeConstant">Smoothing</label>
+        <input name="analyserSmoothingTimeConstant" type="range" global="audioData" element="analyser" setting="smoothingTimeConstant" max="0.99" min="0.01"
+        step="0.01" value="0.8">
+        <label for="cameraZoom">Camera Zoom</label>
+        <input  name="cameraZoom" type="range" global="visualizer" element="camera" setting="zoom" max="5" min="0.3" step="0.1" value="1">
+    </section>
 </body>
 
 </html>
