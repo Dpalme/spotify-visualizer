@@ -3,8 +3,8 @@ class AudioApiScrapper {
         var AudioContext = window.AudioContext || window.webkitAudioContext;
         this.audioCtx = new AudioContext(),
         this.analyser = this.audioCtx.createAnalyser();
-        this.analyser.fftSize = options.fftSize;
-        this.analyser.smoothingTimeConstant = options.smoothness;
+        this.analyser.fftSize = 256 << options.fftSize;
+        this.analyser.smoothingTimeConstant = options.analyser.smoothness;
         this.data = new Uint8Array(this.analyser.frequencyBinCount);
     }
 
@@ -17,6 +17,11 @@ class AudioApiScrapper {
         this.audioStr = this.audioCtx.createMediaElementSource(source);
         this.audioStr.connect(this.analyser);
         this.audioStr.connect(this.audioCtx.destination);
+    }
+  
+    updateFft(fft) {
+      this.analyser.fftSize = 1024 << fft;
+      this.data = new Uint8Array(this.analyser.frequencyBinCount);
     }
 }
 

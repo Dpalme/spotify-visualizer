@@ -5,9 +5,9 @@ import {
 	RGBFormat,
 	ShaderMaterial,
 	UniformsUtils
-} from 'https://threejs.org/build/three.module.js';
-import { Pass, FullScreenQuad } from 'https://threejs.org/examples/jsm/postprocessing/Pass.js';
-import { DigitalGlitch } from 'https://threejs.org/examples/jsm/shaders/DigitalGlitch.js';
+} from './three.module.js';
+import { Pass, FullScreenQuad } from './Pass.js';
+import { DigitalGlitch } from './DigitalGlitch.js';
 
 class GlitchPass extends Pass {
 
@@ -43,12 +43,12 @@ class GlitchPass extends Pass {
 		this.uniforms[ 'byp' ].value = 0;
 
 		if ( this.goWild == true ) {
-			this.uniforms[ 'amount' ].value = 0.01;
+			this.uniforms[ 'amount' ].value = 0.002;
 			this.uniforms[ 'angle' ].value = MathUtils.randFloat( - Math.PI, Math.PI );
 			this.uniforms[ 'seed_x' ].value = MathUtils.randFloat( - 1, 1 );
 			this.uniforms[ 'seed_y' ].value = MathUtils.randFloat( - 1, 1 );
-			this.uniforms[ 'distortion_x' ].value = MathUtils.randFloat( 0, 1 );
-			this.uniforms[ 'distortion_y' ].value = MathUtils.randFloat( 0, 1 );
+			this.uniforms[ 'distortion_x' ].value = MathUtils.randFloat( 0, 0.1 );
+			this.uniforms[ 'distortion_y' ].value = MathUtils.randFloat( 0, 0.1 );
 		} else if ( this.goWild == false ) {
 			this.uniforms[ 'byp' ].value = 1;
 		}
