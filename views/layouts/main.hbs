@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Visualizer</title>
+    <link rel="stylesheet" href="https://dpalmer.in/Peoria/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="https://dpalmer.in/Peoria/css/peoria-0-6-2.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <script src="https://dpalmer.in/Peoria/peoria-4.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+      
+      * {
+        user-select: none;
+      }
+
+      :root {
+          --title: 'Montserrat', sans-serif;
+          --default: 'Montserrat', sans-serif;
+          --h-col: 16px;
+          --col: 32px;
+          --col-2: 64px;
+      }
+
+      p {
+          font-size: 1rem;
+          font-weight: 300;
+          line-height: 2rem;
+          letter-spacing: .25rem;
+      }
+
+      h2 {
+          font-size: 2rem;
+          font-weight: 700;
+          line-height: 2rem;
+          letter-spacing: .5rem;
+      }
+
+      .track-info {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          padding: 0px;
+        text-shadow: 0 0 4px #000000;
+      }
+      
+      .fullscreen {
+        height: calc(100vh - 8vw);
+        top:9vw;
+        box-sizing: border-box
+      }
+      
+      .settings-panel {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        display: none;
+      }
+      
+      .settings-panel.open {
+        display: flex;
+      }
+      
+      .night select {
+        border: 1px solid var(--black);
+        color: var(--black);
+        height: fit-content;
+        align-self: center;
+      }
+    </style>
+  </head>
+
+  <body class="overflow-h fullscreen night">
+      {{{body}}}
+  </body>
+
+</html>
